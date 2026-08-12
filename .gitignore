@@ -1,0 +1,7 @@
+.DS_Store
+.Rhistory
+.RData
+.Rproj.user/
+results/core/
+results/revision/
+results/figures/

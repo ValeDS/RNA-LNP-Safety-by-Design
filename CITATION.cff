@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "Please cite the associated manuscript and archived software release."
+title: "RNA-LNP Safety-by-Design computational framework"
+type: software
+authors:
+  - family-names: "Di Salvatore"
+    given-names: "Valentina"
+  - family-names: "Russo"
+    given-names: "Giulia"
+  - family-names: "Pappalardo"
+    given-names: "Francesco"
+version: "1.0.0"
+date-released: "2026-08-12"
+license: MIT
+repository-code: "https://github.com/ValeDS/RNA-LNP-Safety-by-Design"
+keywords:
+  - RNA therapeutics
+  - lipid nanoparticles
+  - safety-by-design
+  - synthetic data
+  - multi-objective optimization
