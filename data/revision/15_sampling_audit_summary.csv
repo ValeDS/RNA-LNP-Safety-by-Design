@@ -1,0 +1,17 @@
+"metric","value"
+"records",10000
+"possible_patient_formulation_pairs",1e+05
+"unique_realized_pairs",9509
+"design_space_coverage_fraction",0.09509
+"duplicate_records_beyond_first",491
+"pairs_observed_more_than_once",483
+"maximum_repeats_of_one_pair",3
+"expected_unique_pairs_under_independent_sampling",9516.30343852406
+"unique_patients",200
+"unique_formulations",500
+"records_per_formulation_min",8
+"records_per_formulation_median",20
+"records_per_formulation_max",34
+"records_per_patient_min",35
+"records_per_patient_median",50
+"records_per_patient_max",69
