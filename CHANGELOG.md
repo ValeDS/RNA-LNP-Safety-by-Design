@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.1 — 2026-08-15
+
+- Replaced Supplementary Figure S2 with full balanced record-level distributions and ranking trajectories.
+- Expanded Table S5 to include complete distribution statistics and all 500 formulation rankings in each inflammatory-risk stratum.
+- Added the machine-readable risk-distribution summary and complete stratum-specific rankings.
+- Updated documentation and citation metadata for the corrected versioned archive.
+
 ## 1.0.0 — 2026-08-12
 
 - Initial public release of the RNA–LNP Safety-by-Design workflow.

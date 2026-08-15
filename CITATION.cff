@@ -9,8 +9,9 @@ authors:
     given-names: "Giulia"
   - family-names: "Pappalardo"
     given-names: "Francesco"
-version: "1.0.0"
-date-released: "2026-08-12"
+version: "1.0.1"
+date-released: "2026-08-15"
+doi: "10.5281/zenodo.21943828"
 license: MIT
 repository-code: "https://github.com/ValeDS/RNA-LNP-Safety-by-Design"
 keywords:

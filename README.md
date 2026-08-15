@@ -12,7 +12,7 @@ This repository is a computational proof of concept. The response equations, vir
 - `scripts/revision/`: null, sensitivity, subgroup, sampling, covariance and balanced-design analyses.
 - `data/inputs/`: intermediate inputs needed to rerun the analyses without local paths.
 - `data/primary/`: principal outputs from the 10,000-record analysis.
-- `data/revision/`: selected machine-readable outputs from the additional analyses.
+- `data/revision/`: machine-readable outputs from the additional analyses, including complete risk-stratified distribution summaries and formulation rankings.
 - `figures/supplementary/`: supplementary figures in PNG and PDF.
 - `tables/`: machine-readable supplementary tables and captions.
 
@@ -44,6 +44,7 @@ Key checks reproduced by the release are:
 - 21 primary Pareto-optimal candidates;
 - balanced versus primary rank correlation of 0.9981;
 - LNP_0462 ranked first globally and in all three balanced inflammatory-risk strata;
+- complete endpoint and Safety-by-Design score distributions for the Low-, Intermediate- and High-risk strata;
 - maximum absolute cross-layer residual correlation of 0.097 after independent noise generation.
 
 ## Data provenance
@@ -52,4 +53,4 @@ All virtual-patient, formulation and response data are synthetic. GSE171964 is a
 
 ## License and citation
 
-Code is released under the MIT License. Synthetic data, figures and documentation are released under CC BY 4.0. Citation metadata and the repository URL are provided in `CITATION.cff`; the DOI will be added after deposition.
+Code is released under the MIT License. Synthetic data, figures and documentation are released under CC BY 4.0. Version 1.0.1 is archived on Zenodo under DOI [10.5281/zenodo.21943828](https://doi.org/10.5281/zenodo.21943828); full citation metadata are provided in `CITATION.cff`.
