@@ -10,7 +10,7 @@
 
 **Table S4. Safety-by-Design ranking sensitivity to component weights.** Rank range and frequency of top-1, top-10 and top-20 membership for all 500 formulations across 3,876 weight combinations on a 0.05-step simplex, with every component constrained to a minimum weight of 0.05. The original leading candidate, LNP_0462, remained in the top 10 under 99.85% and in the top 20 under 100% of scenarios.
 
-**Table S5. Balanced full-factorial inflammatory-risk analysis.** Endpoint and Safety-by-Design summaries from the complete 200-patient × 500-formulation sensitivity design, together with the ten highest-ranked formulations in each risk stratum. Every formulation was evaluated in 109 Low-, 78 Intermediate- and 13 High-risk virtual patients. This analysis supplements rather than replaces the primary random sample.
+**Table S5. Balanced full-factorial inflammatory-risk analysis.** Part A reports N, mean, SD, median, first and third quartiles, minimum and maximum for all five endpoints and the Safety-by-Design score in each risk stratum across the complete 200-patient × 500-formulation design. Part B reports the complete rankings and Pareto membership of all 500 formulations in each stratum. Every formulation was evaluated in 109 Low-, 78 Intermediate- and 13 High-risk virtual patients.
 
 **Table S6. Complete primary Pareto-optimal candidate set.** Seven formulation parameters, five endpoint means, mean and standard deviation of the Safety-by-Design score and record counts for all 21 independently verified non-dominated candidates. Rank denotes post hoc ordering by the composite score and is conceptually distinct from Pareto membership.
 
@@ -24,7 +24,6 @@
 
 **Figure S1. Safety-by-Design weight sensitivity.** **A**, Distribution of Spearman correlations between each alternative formulation ranking and the original ranking across 3,876 component-weight combinations; the dashed line indicates the median correlation. **B**, Median and full range of ranks for the 12 highest-ranked original formulations. Point color denotes the frequency of rank 1, and point size denotes the frequency of top-10 membership.
 
-**Figure S2. Balanced inflammatory-risk robustness.** **A**, Mean endpoint and composite-score values in Intermediate- and High-risk virtual patients expressed relative to Low-risk means in the complete 100,000-pair sensitivity design. **B**, Mean Safety-by-Design scores of the ten highest-ranked formulations across risk strata; LNP_0462 is highlighted in black. Increasing inflammatory risk lowers absolute safety-related performance but does not materially reorganize formulation rankings.
+**Figure S2. Balanced inflammatory-risk distributions and ranking robustness.** **A**, Violin plots show the full balanced record-level distributions of delivery, adaptive activation, innate activation, cytokine burden, off-target activation and Safety-by-Design score in the Low-, Intermediate- and High-risk strata; embedded box plots show the median and interquartile range. **B**, Mean Safety-by-Design scores of the ten leading formulations across risk strata; LNP_0462 is highlighted in black.
 
 **Figure S3. BPCI null comparison and donor-level uncertainty.** **A**, Observed BPCI values compared with the central 95% interval and mean of the exact shuffled-label null at each post-vaccination day. **B**, Median and 95% percentile interval from 2,000 paired-donor bootstrap replicates; point size denotes donor count and open red points show the original unpaired estimator.
-
