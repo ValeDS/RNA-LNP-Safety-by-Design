@@ -15,15 +15,95 @@ fig1 <- p1a+p1b+plot_annotation(title="Supplementary Figure S1. Safety-by-Design
 ggsave(file.path(out,"Figure_S1_SbD_weight_sensitivity.png"),fig1,width=12,height=5.8,dpi=300,bg="white")
 ggsave(file.path(out,"Figure_S1_SbD_weight_sensitivity.pdf"),fig1,width=12,height=5.8)
 
-# Figure S2: balanced risk analysis.
-rs <- read.csv(file.path(inp,"16_balanced_risk_endpoint_summary.csv")) %>% mutate(inflammatory_risk_class=factor(inflammatory_risk_class,levels=c("Low","Intermediate","High")))
-rl <- rs %>% select(inflammatory_risk_class,delivery,adaptive,innate,cytokine,off_target,sbd) %>% pivot_longer(-inflammatory_risk_class,names_to="endpoint",values_to="value") %>% group_by(endpoint) %>% mutate(relative_to_low=value/value[inflammatory_risk_class=="Low"]) %>% ungroup() %>% mutate(endpoint=recode(endpoint,delivery="Delivery",adaptive="Adaptive",innate="Innate",cytokine="Cytokine",off_target="Off-target",sbd="SbD"))
-p2a <- ggplot(rl,aes(inflammatory_risk_class,relative_to_low,group=endpoint,colour=endpoint))+geom_hline(yintercept=1,colour="#BBBBBB")+geom_line(linewidth=.7)+geom_point(size=2)+labs(title="A  Endpoint change relative to Low risk",x=NULL,y="Ratio to Low-risk mean",colour="Endpoint")+theme_pub
-rr <- read.csv(file.path(inp,"16_balanced_risk_formulation_rankings_pareto.csv")) %>% filter(sbd_rank<=10) %>% mutate(inflammatory_risk_class=factor(inflammatory_risk_class,levels=c("Low","Intermediate","High")))
-p2b <- ggplot(rr,aes(inflammatory_risk_class,mean_safety_score,group=lnp_id,colour=lnp_id))+geom_line(alpha=.65)+geom_point(size=1.8)+geom_line(data=filter(rr,lnp_id=="LNP_0462"),linewidth=1.4,colour="black")+geom_point(data=filter(rr,lnp_id=="LNP_0462"),size=3,colour="black")+labs(title="B  Leading formulations across risk strata",subtitle="Black line: LNP_0462",x=NULL,y="Mean Safety-by-Design score",colour="Formulation")+theme_pub+theme(legend.position="none")
-fig2 <- p2a+p2b+plot_annotation(title="Supplementary Figure S2. Balanced inflammatory-risk robustness",theme=theme(plot.title=element_text(margin=margin(4,4,10,4))))
-ggsave(file.path(out,"Figure_S2_balanced_risk_robustness.png"),fig2,width=12,height=6.2,dpi=300,bg="white",limitsize=FALSE)
-ggsave(file.path(out,"Figure_S2_balanced_risk_robustness.pdf"),fig2,width=12,height=6.2)
+# Figure S2: balanced risk distributions and ranking robustness.
+risk_levels <- c("Low", "Intermediate", "High")
+records <- read.csv(file.path(inp, "16_balanced_100000_scored_records.csv"), check.names = FALSE) %>%
+  mutate(inflammatory_risk_class = factor(inflammatory_risk_class, levels = risk_levels))
+
+long <- records %>%
+  transmute(
+    inflammatory_risk_class,
+    Delivery = delivery_efficiency,
+    `Adaptive activation` = adaptive_activation,
+    `Innate activation` = innate_activation,
+    `Cytokine burden` = cytokine_burden,
+    `Off-target activation` = off_target_activation,
+    `Safety-by-Design score` = safety_by_design_score
+  ) %>%
+  pivot_longer(-inflammatory_risk_class, names_to = "metric", values_to = "value")
+
+distribution_summary <- long %>%
+  group_by(inflammatory_risk_class, metric) %>%
+  summarise(
+    n_records = n(),
+    mean = mean(value),
+    sd = sd(value),
+    median = median(value),
+    q1 = unname(quantile(value, 0.25)),
+    q3 = unname(quantile(value, 0.75)),
+    min = min(value),
+    max = max(value),
+    .groups = "drop"
+  )
+write.csv(distribution_summary, file.path(inp, "17_balanced_risk_score_distributions.csv"), row.names = FALSE)
+
+theme_s2 <- theme_classic(base_size = 10.5) +
+  theme(
+    plot.title = element_text(face = "bold", size = 11),
+    plot.subtitle = element_text(size = 9),
+    legend.position = "bottom",
+    strip.background = element_rect(fill = "#F2F2F2", colour = NA),
+    strip.text = element_text(face = "bold", size = 9),
+    axis.text.x = element_text(angle = 20, hjust = 1)
+  )
+
+p2a <- ggplot(long, aes(inflammatory_risk_class, value, fill = inflammatory_risk_class)) +
+  geom_violin(scale = "width", trim = TRUE, colour = "white", linewidth = 0.25, alpha = 0.85) +
+  geom_boxplot(width = 0.17, outlier.shape = NA, fill = "white", colour = "#333333", linewidth = 0.35) +
+  facet_wrap(~ metric, scales = "free_y", ncol = 3) +
+  scale_fill_manual(values = cols, guide = "none") +
+  labs(
+    title = "A  Score distributions by inflammatory-risk stratum",
+    subtitle = "Violins show the full balanced distributions; boxes show median and interquartile range",
+    x = NULL,
+    y = "Score"
+  ) +
+  theme_s2
+
+rr <- read.csv(file.path(inp, "16_balanced_risk_formulation_rankings_pareto.csv")) %>%
+  mutate(inflammatory_risk_class = factor(inflammatory_risk_class, levels = risk_levels))
+leading_ids <- rr %>%
+  group_by(lnp_id) %>%
+  summarise(best_rank = min(sbd_rank), mean_rank = mean(sbd_rank), .groups = "drop") %>%
+  arrange(mean_rank, best_rank) %>%
+  slice_head(n = 10) %>%
+  pull(lnp_id)
+leading <- rr %>% filter(lnp_id %in% leading_ids)
+
+p2b <- ggplot(leading, aes(inflammatory_risk_class, mean_safety_score, group = lnp_id, colour = lnp_id)) +
+  geom_line(alpha = 0.65, linewidth = 0.55) +
+  geom_point(size = 1.8) +
+  geom_line(data = filter(leading, lnp_id == "LNP_0462"), linewidth = 1.35, colour = "black") +
+  geom_point(data = filter(leading, lnp_id == "LNP_0462"), size = 2.8, colour = "black") +
+  labs(
+    title = "B  Leading formulations across risk strata",
+    subtitle = "Black line: LNP_0462",
+    x = NULL,
+    y = "Mean Safety-by-Design score"
+  ) +
+  theme_s2 +
+  theme(legend.position = "none")
+
+fig2 <- p2a / p2b +
+  plot_layout(heights = c(2.2, 1)) +
+  plot_annotation(
+    title = "Supplementary Figure S2. Balanced inflammatory-risk distributions and ranking robustness",
+    theme = theme(plot.title = element_text(face = "bold", size = 13, margin = margin(4, 4, 10, 4)))
+  )
+ggsave(file.path(out, "Figure_S2_balanced_risk_distributions.png"), fig2,
+       width = 12, height = 10, dpi = 300, bg = "white", limitsize = FALSE)
+ggsave(file.path(out, "Figure_S2_balanced_risk_distributions.pdf"), fig2,
+       width = 12, height = 10, bg = "white", limitsize = FALSE)
 
 # Figure S3: BPCI null and donor bootstrap uncertainty.
 null <- read.csv(file.path(inp,"09_BPCI_exact_null_summary.csv"))
