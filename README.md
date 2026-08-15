@@ -53,4 +53,4 @@ All virtual-patient, formulation and response data are synthetic. GSE171964 is a
 
 ## License and citation
 
-Code is released under the MIT License. Synthetic data, figures and documentation are released under CC BY 4.0. Version 1.0.2 is archived on Zenodo under DOI [10.5281/zenodo.21944177](https://doi.org/10.5281/zenodo.21944177); full citation metadata are provided in `CITATION.cff`.
+Code is released under the MIT License. Synthetic data, figures and documentation are released under CC BY 4.0. Version 1.0.2 is archived on Zenodo under DOI [10.5281/zenodo.21944212](https://doi.org/10.5281/zenodo.21944212); full citation metadata are provided in `CITATION.cff`.
