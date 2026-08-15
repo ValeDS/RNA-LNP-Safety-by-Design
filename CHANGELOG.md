@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.2 — 2026-08-15
+
+- Reissued the corrected repository archive after a failed Zenodo transfer.
+- No scientific results or analysis files changed relative to version 1.0.1.
+- Updated release and archival metadata to DOI 10.5281/zenodo.21944177.
+
 ## 1.0.1 — 2026-08-15
 
 - Replaced Supplementary Figure S2 with full balanced record-level distributions and ranking trajectories.
